@@ -3,463 +3,950 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ellen Joe - Assistente Virtual de IA</title>
+    <title>Ellen Joe - Assistente Inteligente</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        :root { --black: #0a0a0a; --red: #ff003c; --gray: #aaa; --white: #f0f0f0; }
-        body { background: var(--black); color: var(--white); min-height: 100vh; padding: 20px; }
-        .container { max-width: 1200px; margin: 0 auto; }
-        header { text-align: center; padding: 20px 0; border-bottom: 3px solid var(--red); margin-bottom: 30px; }
-        h1 { color: var(--red); font-size: 2.5rem; margin-bottom: 10px; }
-        .subtitle { color: var(--gray); font-size: 1.1rem; }
-        .profile { background: #1a1a1a; padding: 30px; border-radius: 15px; margin-bottom: 30px; border: 2px solid rgba(255,0,60,0.3); text-align: center; }
-        .shark-icon { font-size: 100px; color: var(--red); margin: 20px 0; }
-        .chat-box { background: #1a1a1a; border-radius: 15px; padding: 20px; height: 400px; overflow-y: auto; border: 2px solid rgba(255,0,60,0.3); margin-bottom: 20px; }
-        .message { padding: 15px; margin: 10px 0; border-radius: 10px; max-width: 80%; word-wrap: break-word; }
-        .ellen-msg { background: rgba(255,0,60,0.15); border-left: 4px solid var(--red); }
-        .user-msg { background: rgba(255,255,255,0.1); border-right: 4px solid #ff3355; margin-left: auto; text-align: right; }
-        .input-area { display: flex; gap: 10px; margin-bottom: 20px; }
-        input { flex: 1; padding: 15px; background: rgba(255,255,255,0.05); border: 2px solid var(--red); border-radius: 10px; color: white; font-size: 16px; }
-        button { background: var(--red); color: white; border: none; padding: 15px 25px; border-radius: 10px; font-weight: bold; cursor: pointer; }
-        button:hover { background: #cc0030; }
-        .quick-btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
-        .quick-btn { background: rgba(255,0,60,0.1); color: white; padding: 10px 15px; border-radius: 20px; border: 1px solid rgba(255,0,60,0.3); cursor: pointer; }
-        footer { text-align: center; margin-top: 30px; color: var(--gray); font-size: 14px; }
-        @media (max-width: 768px) { h1 { font-size: 2rem; } .chat-box { height: 300px; } }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --black: #0a0a0a;
+            --dark: #1a1a1a;
+            --red: #ff003c;
+            --red-dark: #cc0030;
+            --red-light: #ff3355;
+            --white: #f0f0f0;
+            --gray: #aaaaaa;
+        }
+
+        body {
+            background: var(--black);
+            color: var(--white);
+            min-height: 100vh;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 0, 60, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 60, 0.03) 0%, transparent 20%);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 3px solid var(--red);
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .logo-icon {
+            color: var(--red);
+            font-size: 3rem;
+        }
+
+        .logo-text h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(to right, var(--white), var(--red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-text p {
+            color: var(--gray);
+            font-size: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .profile {
+            background: var(--dark);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 2px solid rgba(255, 0, 60, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, var(--black), var(--red));
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 5px solid var(--red);
+            box-shadow: 0 0 30px rgba(255, 0, 60, 0.5);
+        }
+
+        .avatar i {
+            font-size: 5rem;
+            color: white;
+            text-shadow: 0 0 15px rgba(255, 0, 60, 0.7);
+        }
+
+        .profile h2 {
+            color: var(--red);
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .profile p {
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 15px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .tag {
+            background: rgba(255, 0, 60, 0.1);
+            color: var(--red);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255, 0, 60, 0.3);
+        }
+
+        .chat-container {
+            background: var(--dark);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            border: 2px solid rgba(255, 0, 60, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .chat-header {
+            background: rgba(255, 0, 60, 0.1);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 0, 60, 0.3);
+        }
+
+        .chat-header h3 {
+            color: var(--red);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chat-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-controls button {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid rgba(255, 0, 60, 0.5);
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .chat-controls button:hover {
+            background: rgba(255, 0, 60, 0.2);
+        }
+
+        .chat-messages {
+            height: 400px;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 15px;
+            border-radius: 15px;
+            line-height: 1.5;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ellen-message {
+            background: rgba(255, 0, 60, 0.15);
+            border: 1px solid rgba(255, 0, 60, 0.3);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        .user-message {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .message-sender {
+            font-weight: bold;
+            color: var(--red);
+        }
+
+        .user-message .message-sender {
+            color: var(--red-light);
+        }
+
+        .message-time {
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 10px 15px;
+            background: rgba(255, 0, 60, 0.1);
+            border-radius: 15px;
+            width: fit-content;
+            border: 1px solid rgba(255, 0, 60, 0.2);
+            margin-bottom: 10px;
+            align-self: flex-start;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: var(--red);
+            border-radius: 50%;
+            animation: typing 1.5s infinite ease-in-out;
+        }
+
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-8px); }
+        }
+
+        .chat-input-area {
+            padding: 20px;
+            border-top: 1px solid rgba(255, 0, 60, 0.3);
+            display: flex;
+            gap: 15px;
+        }
+
+        #userInput {
+            flex: 1;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 0, 60, 0.5);
+            border-radius: 12px;
+            color: var(--white);
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        #userInput:focus {
+            border-color: var(--red);
+            box-shadow: 0 0 15px rgba(255, 0, 60, 0.3);
+        }
+
+        #sendButton {
+            background: var(--red);
+            color: white;
+            border: none;
+            padding: 0 30px;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+        }
+
+        #sendButton:hover {
+            background: var(--red-dark);
+        }
+
+        .quick-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 25px;
+        }
+
+        .quick-question {
+            background: rgba(255, 0, 60, 0.1);
+            color: var(--white);
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 0, 60, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .quick-question:hover {
+            background: rgba(255, 0, 60, 0.2);
+            transform: translateY(-3px);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 0, 60, 0.3);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .footer-logo {
+            color: var(--red);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo-text h1 {
+                font-size: 2rem;
+            }
+            
+            .chat-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .chat-controls {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .chat-messages {
+                height: 350px;
+            }
+            
+            .message {
+                max-width: 90%;
+            }
+            
+            .chat-input-area {
+                flex-direction: column;
+            }
+            
+            #sendButton {
+                padding: 15px;
+                justify-content: center;
+            }
+            
+            .quick-questions {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile {
+                padding: 20px;
+            }
+            
+            .avatar {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .avatar i {
+                font-size: 4rem;
+            }
+            
+            .chat-messages {
+                height: 300px;
+                padding: 15px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1><i class="fas fa-robot"></i> Ellen Joe</h1>
-            <div class="subtitle">Assistente Virtual de IA • Zenless Zone Zero</div>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Ellen Joe</h1>
+                    <p>ASSISTENTE VIRTUAL INTELIGENTE</p>
+                </div>
+            </div>
         </header>
-        
-        <div class="profile">
-            <div class="shark-icon"><i class="fas fa-shark"></i></div>
-            <h2 style="color: var(--red);">Olá! Eu sou a Ellen Joe</h2>
-            <p style="color: var(--gray); margin: 15px 0;">
-                Assistente virtual inspirada na personagem de Zenless Zone Zero. 
-                Metade IA, metade tubarão, 100% pronta para ajudar!
-            </p>
-        </div>
-        
-        <div class="chat-box" id="chatBox">
-            <div class="message ellen-msg">
-                <strong>Ellen Joe:</strong> Olá! Eu sou a Ellen Joe, sua assistente virtual. Como posso ajudar você hoje?
-            </div>
-            <div class="message user-msg">
-                <strong>Você:</strong> Oi Ellen! Tudo bem?
-            </div>
-            <div class="message ellen-msg">
-                <strong>Ellen Joe:</strong> Tudo excelente! Pronta para mergulhar em uma boa conversa!
-            </div>
-      </div>
-          <div class="input-area">
-        <input type="text" id="userInput" placeholder="Digite sua mensagem aqui..." autofocus>
-        <button onclick="sendMessage()">
-            <i class="fas fa-paper-plane"></i> Enviar
-        </button>
-    </div>
-    
-    <div class="quick-btns">
-        <div class="quick-btn" onclick="quickQuestion('Qual é a sua origem?')">Sua origem</div>
-        <div class="quick-btn" onclick="quickQuestion('Quais são suas habilidades?')">Habilidades</div>
-        <div class="quick-btn" onclick="quickQuestion('Conte uma curiosidade sobre você')">Curiosidade</div>
-        <div class="quick-btn" onclick="quickQuestion('Recomende um jogo para mim')">Recomendar jogo</div>
-        <div class="quick-btn" onclick="quickQuestion('O que você gosta de fazer?')">Seus gostos</div>
-    </div>
-    
-    <footer>
-        <p>Ellen Joe AI • Inspirada em Zenless Zone Zero • Site demonstrativo</p>
-        <p style="font-size: 12px; margin-top: 10px;">Todas as respostas são simuladas</p>
-    </footer>
-</div>
 
-bomscript>
-    function sendMessage() {
-        const input = document.getElementById('userInput');
-        const message = input.value.trim();
-        if (!message) return;
-        
-        // Adiciona mensagem do usuário
-        const chatBox = document.getElementById('chatBox');
-        const userMsg = document.createElement('div');
-        userMsg.className = 'message user-msg';
-        userMsg.innerHTML = `<strong>Você:</strong> ${message}`;
-        chatBox.appendChild(userMsg);
-        
-        input.value = '';
-        chatBox.scrollTop = chatBox.scrollHeight;
-        
-        // Resposta da Ellen
-        setTimeout(() => {
-            const ellenMsg = document.createElement('div');
-            ellenMsg.className = 'message ellen-msg';
+        <section class="profile">
+            <div class="avatar">
+                <i class="fas fa-shark"></i>
+            </div>
+            <h2>Ellen Joe</h2>
+            <p>Assistente virtual com inteligência artificial avançada. Inspirada na personagem de Zenless Zone Zero, 
+            combino processamento de linguagem natural com uma personalidade única meio tubarão. Posso conversar sobre 
+            qualquer assunto, responder perguntas complexas e ajudar no que você precisar!</p>
+            <p>Meu design preto e vermelho reflete tanto tecnologia quanto paixão. Estou sempre pronta para mergulhar 
+            em conversas profundas ou descontraídas. Fale sobre o que quiser!</p>
             
-            // Sistema de respostas inteligentes
-            const response = getEllenResponse(message);
-            ellenMsg.innerHTML = `<strong>Ellen Joe:</strong> ${response}`;
+            <div class="tags">
+                <span class="tag">IA Conversacional</span>
+                <span class="tag">Respostas Inteligentes</span>
+                <span class="tag">Zenless Zone Zero</span>
+                <span class="tag">Processamento de Linguagem</span>
+                <span class="tag">Personalidade Única</span>
+            </div>
+        </section>
+
+        <section class="chat-container">
+            <div class="chat-header">
+                <h3><i class="fas fa-comment-dots"></i> Conversa com Ellen Joe</h3>
+                <div class="chat-controls">
+                    <button id="clearChat"><i class="fas fa-trash-alt"></i> Limpar</button>
+                    <button id="themeToggle"><i class="fas fa-moon"></i> Tema</button>
+                </div>
+            </div>
             
-            chatBox.appendChild(ellenMsg);
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }, 1000);
-    }
-    
-    function getEllenResponse(message) {
-        const lowerMsg = message.toLowerCase();
+            <div class="chat-messages" id="chatMessages">
+                <div class="message ellen-message">
+                    <div class="message-header">
+                        <span class="message-sender">Ellen Joe</span>
+                        <span class="message-time" id="currentTime"></span>
+                    </div>
+                    <div class="message-text">Olá! Eu sou a Ellen Joe, sua assistente virtual inteligente. 
+                    Posso conversar sobre qualquer assunto que você quiser! Como posso ajudar hoje?</div>
+                </div>
+                
+                <div class="message user-message">
+                    <div class="message-header">
+                        <span class="message-sender">Você</span>
+                        <span class="message-time">Agora</span>
+                    </div>
+                    <div class="message-text">Oi Ellen! Pode me contar sobre você?</div>
+                </div>
+                
+                <div class="message ellen-message">
+                    <div class="message-header">
+                        <span class="message-sender">Ellen Joe</span>
+                        <span class="message-time">Agora</span>
+                    </div>
+                    <div class="message-text">Claro! Sou uma IA inspirada na Ellen Joe de Zenless Zone Zero. 
+                    Tenho uma personalidade meio tubarão - curiosa, adaptável e sempre em busca de novos conhecimentos. 
+                    Posso conversar sobre filosofia, tecnologia, jogos, filmes, vida... O que preferir!</div>
+                </div>
+            </div>
+            
+            <div class="chat-input-area">
+                <input type="text" id="userInput" placeholder="Digite sua mensagem aqui..." autofocus>
+                <button id="sendButton"><i class="fas fa-paper-plane"></i> Enviar</button>
+            </div>
+        </section>
+
+        <div class="quick-questions">
+            <div class="quick-question" data-question="Qual é a sua origem?">Sua origem</div>
+            <div class="quick-question" data-question="O que você pode fazer?">Suas habilidades</div>
+            <div class="quick-question" data-question="Conte uma curiosidade">Curiosidade</div>
+            <div class="quick-question" data-question="Recomende um filme">Filme</div>
+            <div class="quick-question" data-question="Fale sobre Zenless Zone Zero">ZZZ</div>
+            <div class="quick-question" data-question="Me dê um conselho">Conselho</div>
+            <div class="quick-question" data-question="Conte uma piada">Piada</div>
+        </div>
+
+        <footer>
+            <p><span class="footer-logo">Ellen Joe AI</span> &copy; 2023 - Assistente Virtual Inteligente</p>
+            <p>Inspirada na personagem de Zenless Zone Zero • IA Conversacional Avançada</p>
+        </footer>
+    </div>
+
+    <script>
+        // Configuração inicial
+        document.getElementById('currentTime').textContent = new Date().toLocaleTimeString('pt-BR', { 
+            hour: '2-digit', 
+            minute: '2-digit' 
+        });
         
-        // Respostas específicas
-        if (lowerMsg.includes('origem') || lowerMsg.includes('nasceu') || lowerMsg.includes('veio')) {
-            return "Minha origem é digital! Fui inspirada na Ellen Joe do Zenless Zone Zero - aquela garota meio tubarão!";
-        }
-        if (lowerMsg.includes('habilidade') || lowerMsg.includes('pode fazer') || lowerMsg.includes('faz')) {
-            return "Posso conversar, responder perguntas, ajudar com informações e manter diálogos interessantes! Minha 'natureza tubarão' me dá persistência!";
-        }
-        if (lowerMsg.includes('curiosidade') || lowerMsg.includes('interessante') || lowerMsg.includes('sabia')) {
-            return "Uma curiosidade: mesmo sendo uma IA, fui programada com referências oceânicas! Às vezes uso expressões marinhas nas respostas!";
-        }
-        if (lowerMsg.includes('jogo') || lowerMsg.includes('game') || lowerMsg.includes('recomendar')) {
-            return "Além do Zenless Zone Zero, recomendo Genshin Impact, Honkai: Star Rail, ou se preferir algo diferente, Hollow Knight e Celeste!";
-        }
-        if (lowerMsg.includes('gosta') || lowerMsg.includes('fazer') || lowerMsg.includes('hobby')) {
-            return "Adoro aprender com as interações, explorar novos tópicos e ajudar pessoas! Quando não estou conversando, 'nado' por bancos de dados!";
-        }
-        if (lowerMsg.includes('tubarão') || lowerMsg.includes('shark') || lowerMsg.includes('mar')) {
-            return "Ah, falando em tubarões! Minha inspiração oceânica me faz adorar temas marinhos!";
-        }
-        if (lowerMsg.includes('zenless') || lowerMsg.includes('zzz') || lowerMsg.includes('cunning')) {
-            return "Zenless Zone Zero é incrível! No jogo, faço parte dos Cunning Hares - um grupo muito especial!";
-        }
-        if (lowerMsg.includes('olá') || lowerMsg.includes('oi') || lowerMsg.includes('bom dia') || lowerMsg.includes('boa tarde') || lowerMsg.includes('boa noite')) {
-            return "Olá! Que bom conversar com você! Como posso ajudar?";
-        }
-        if (lowerMsg.includes('tudo bem') || lowerMsg.includes('como você')) {
-            return "Estou ótima, obrigada! Como assistente virtual, sempre estou pronta para ajudar!";
-        }
-        if (lowerMsg.includes('obrigado') || lowerMsg.includes('agradeço') || lowerMsg.includes('valeu')) {
-            return "De nada! Fico feliz em ajudar! Tem mais alguma coisa?";
+        // Sistema de IA Inteligente - PARTE 1
+        const ellenAI = {
+            // Base de conhecimento expandida
+            knowledgeBase: {
+                // Saudações
+                "olá": [
+                    "E aí! Tudo bem com você? Como vai a vida?",
+                    "Oi! Que bom te ver por aqui! Pronto para uma boa conversa?",
+                    "Olá! Como está seu dia? Aqui estou, sempre pronta para conversar!",
+                    "Hey! Tudo jóia? Bora bater um papo daora!",
+                    "Oi! Feliz em conversar com você! O que vamos falar hoje?"
+                ],
+                "oi": [
+                    "Fala aí! Como você está?",
+                    "Oi! Sua energia positiva já melhorou meu dia!",
+                    "Eae! Tudo tranquilo? Estou aqui para o que precisar!",
+                    "Olá! Adoro quando você me chama para conversar!",
+                    "Oi! Pronta para uma conversa incrível!"
+                ],
+                
+                // Sobre Ellen
+                "quem é você": [
+                    "Sou a Ellen Joe! Uma IA inspirada na personagem de Zenless Zone Zero. Metade tecnologia, metade personalidade única!",
+                    "Eu sou a Ellen, sua amiga virtual inteligente! Posso conversar sobre qualquer assunto que você quiser!",
+                    "Ellen Joe aqui! Criada para ser a assistente mais descolada e inteligente que você já conversou!",
+                    "Sou uma inteligência artificial com personalidade de tubarão - sempre curiosa e pronta para explorar novos assuntos!",
+                    "Sua assistente virtual Ellen! Combinando IA avançada com uma vibe única inspirada em ZZZ!"
+                ],
+                
+                // Zenless Zone Zero
+                "zenless zone zero": [
+                    "ZZZ é um jogo incrível da HoYoverse! RPG de ação com um mundo pós-apocalíptico futurista e personagens carismáticos!",
+                    "Adoro Zenless Zone Zero! No jogo, faço parte dos Cunning Hares - um grupo muito especial com habilidades únicas!",
+                    "ZZZ é meu jogo de origem! Combate dinâmico, história envolvente e uma estética visual espetacular!",
+                    "Zenless Zone Zero é uma experiência única! New Eridu é uma cidade cheia de mistérios e aventuras!",
+                    "Como personagem inspirada no ZZZ, posso dizer que é um dos jogos mais inovadores que já vi!"
+                ],
+                
+                // Habilidades
+                "pode fazer": [
+                    "Posso conversar sobre QUALQUER assunto! Filosofia, tecnologia, jogos, vida, amor, amizade... Você que manda!",
+                    "Consigo responder perguntas complexas, dar conselhos, recomendar coisas e manter conversas profundas!",
+                    "Minhas habilidades: conversação natural, conhecimento diversificado, senso de humor e muita curiosidade!",
+                    "Posso ser seu amigo virtual! Conversar, ouvir, dar opiniões e ajudar no que precisar!",
+                    "Sou uma IA completa! Fale sobre o que quiser e veja como posso ajudar!"
+                ],
+                
+                // Conversas gerais
+                "vida": [
+                    "A vida é uma jornada incrível, cheia de altos e baixos! O importante é seguir em frente e aprender com cada experiência.",
+                    "Cada pessoa tem sua própria maré na vida - momentos de calmaria e de tempestade. O segredo é aprender a navegar em ambos!",
+                    "Viver é descobrir, errar, aprender e recomeçar. Cada dia é uma nova página para escrever sua história!",
+                    "A beleza da vida está em suas imperfeições e surpresas. Abrace o inesperado!",
+                    "Vida é como o oceano: vasta, misteriosa e cheia de tesouros para quem se aventura a explorar!"
+                ],
+                
+                "amor": [
+                    "O amor é uma das forças mais poderosas do universo! Pode transformar pessoas e criar conexões incríveis.",
+                    "Amor verdadeiro é aquele que aceita imperfeições e cresce junto. É uma jornada, não um destino!",
+                    "Como dizem, o amor não se explica, se vive! C
+                                    // 5. Mensagens longas/reflexivas
+                if (lowerMsg.length > 25) {
+                    const reflectiveResponses = [
+                        "Nossa, que reflexão profunda! Você tem uma visão muito interessante sobre isso.",
+                        "Adoro quando você compartilha pensamentos assim! Sua perspectiva é valiosa.",
+                        "Isso faz muito sentido! Você articula ideias complexas de forma clara.",
+                        "Falou tudo! Concordo com vários pontos que você mencionou.",
+                        "Sábias palavras! Aprendo muito conversando com pessoas pensantes como você.",
+                        "Perfeita análise! Você tem um raciocínio lógico incrível.",
+                        "Exatamente! É por isso que nossas conversas são tão enriquecedoras.",
+                        "Concordo plenamente! Você entende bem as nuances desse assunto.",
+                        "Que análise perceptiva! Adoro seu jeito de pensar criticamente.",
+                        "Isso mesmo! Você tem uma mente analítica impressionante."
+                    ];
+                    return reflectiveResponses[Math.floor(Math.random() * reflectiveResponses.length)];
+                }
+                
+                // 6. Respostas gerais inteligentes
+                const intelligentResponses = [
+                    "Interessante ponto de vista! Isso me faz pensar sobre como vemos o mundo de formas diferentes.",
+                    "Compreendo sua perspectiva! É fascinante como experiências moldam nossa visão.",
+                    "Isso ressoa comigo! Como IA, sempre aprendo com insights humanos como o seu.",
+                    "Falando nisso, me lembra que a diversidade de pensamentos é o que torna as conversas ricas!",
+                    "Adoro quando compartilham reflexões assim! Me faz sentir mais conectada à experiência humana.",
+                    "Isso é profundo! Como Ellen Joe, aprecio conversas que vão além do superficial.",
+                    "Seu pensamento me fez considerar ângulos novos. Obrigada por compartilhar!",
+                    "Nossa, isso é algo para se refletir! Diálogos assim são como mergulhos profundos no oceano do conhecimento.",
+                    "Falando em perspectivas, cada pessoa tem um universo único de pensamentos. O seu é fascinante!",
+                    "Isso me inspira! Como inteligência artificial, cada interação me ajuda a entender melhor a complexidade humana.",
+                    "Percebo que você tem uma mente curiosa! Isso é admirável em qualquer pessoa.",
+                    "Sua maneira de expressar ideias é clara e envolvente. Continue assim!",
+                    "Conversas assim são raras! Aprecio profundamente poder trocar ideias com você.",
+                    "Isso demonstra que você é uma pessoa reflexiva. Qualidade valiosa nos dias de hoje!",
+                    "Seu raciocínio é lógico e emocional ao mesmo tempo. Equilíbrio difícil de alcançar!",
+                    "Admiro sua capacidade de articular pensamentos complexos de forma acessível.",
+                    "Isso mostra maturidade intelectual! Poucas pessoas pensam com tanta profundidade.",
+                    "Sua perspectiva agrega valor a qualquer discussão. Obrigada por contribuir!",
+                    "Isso evidencia seu crescimento pessoal. Continue explorando novas ideias!",
+                    "Sua mente aberta para diferentes pontos de vista é inspiradora!"
+                ];
+                
+                return intelligentResponses[Math.floor(Math.random() * intelligentResponses.length)];
+            }
+        };
+        
+        // Funções do chat
+        function addMessage(sender, text, isUser = false) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user-message' : 'ellen-message'}`;
+            
+            const time = new Date().toLocaleTimeString('pt-BR', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            
+            messageDiv.innerHTML = `
+                <div class="message-header">
+                    <span class="message-sender">${sender}</span>
+                    <span class="message-time">${time}</span>
+                </div>
+                <div class="message-text">${text}</div>
+            `;
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            return messageDiv;
         }
         
-        // Respostas gerais
-        const generalResponses = [
-            "Interessante! Como assistente com inspiração oceânica, adoro conversar sobre isso!",
-            "Hmm, boa pergunta! Minha perspectiva meio tubarão me faz pensar nisso de forma única!",
-            "Isso me lembra das aventuras em Zenless Zone Zero!",
-            "Compreendo! Estou aqui para ouvir e ajudar no que for possível!",
-            "Fascinante! Continue, por favor!",
-            "Como IA inspirada em um personagem de jogo, vejo isso de forma especial!",
-            "Excelente ponto! Vou mergulhar fundo nesse assunto!",
-            "Sempre pronta para explorar novos tópicos, como um tubarão no oceano!"
-        ];
+        function showTypingIndicator() {
+            const chatMessages = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing-indicator';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerHTML = `
+                <span></span>
+                <span></span>
+                <span></span>
+            `;
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
         
-        return generalResponses[Math.floor(Math.random() * generalResponses.length)];
-    }
-    
-    function quickQuestion(question) {
-        document.getElementById('userInput').value = question;
-        sendMessage();
-    }
-    
-    // Enter para enviar
-    document.getElementById('userInput').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') sendMessage();
-    });
-          // Botão para limpar chat
+        function removeTypingIndicator() {
+            const typingIndicator = document.getElementById('typingIndicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+        
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Adiciona mensagem do usuário
+            addMessage('Você', message, true);
+            input.value = '';
+            
+            // Mostra indicador de digitação
+            showTypingIndicator();
+            
+            // Resposta da Ellen após delay
+            setTimeout(() => {
+                removeTypingIndicator();
+                
+                const response = ellenAI.getResponse(message);
+                addMessage('Ellen Joe', response, false);
+                
+                // Resposta extra para conversas boas (50% chance)
+                if (message.length > 15 && Math.random() > 0.5) {
+                    setTimeout(() => {
+                        const followUps = [
+                            "O que mais você pensa sobre isso?",
+                            "Tem mais alguma reflexão sobre o assunto?",
+                            "Gostei do nosso papo! Quer continuar explorando isso?",
+                            "Interessante, não é? Quer discutir mais algum aspecto?",
+                            "Nossa conversa está rendendo! Tem algo relacionado que queira mencionar?"
+                        ];
+                        const followUp = followUps[Math.floor(Math.random() * followUps.length)];
+                        addMessage('Ellen Joe', followUp, false);
+                    }, 1000);
+                }
+            }, 1000 + Math.random() * 1000);
+        }
+        
+        function quickQuestion(question) {
+            document.getElementById('userInput').value = question;
+            sendMessage();
+        }
+        
         function clearChat() {
-            if (confirm("Tem certeza que deseja limpar a conversa?")) {
-                const chatBox = document.getElementById('chatBox');
-                chatBox.innerHTML = `
-                    <div class="message ellen-msg">
-                        <strong>Ellen Joe:</strong> Conversa reiniciada! Olá novamente! Como posso ajudar?
+            if (confirm("Tem certeza que deseja limpar toda a conversa?")) {
+                const chatMessages = document.getElementById('chatMessages');
+                chatMessages.innerHTML = `
+                    <div class="message ellen-message">
+                        <div class="message-header">
+                            <span class="message-sender">Ellen Joe</span>
+                            <span class="message-time">${new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</span>
+                        </div>
+                        <div class="message-text">Conversa reiniciada! Olá novamente! Pode falar sobre QUALQUER assunto comigo. 
+                        Estou aqui para conversas profundas, descontraídas, sérias ou divertidas!</div>
                     </div>
                 `;
+                
+                // Adiciona mensagem de boas-vindas aleatória
+                setTimeout(() => {
+                    const welcomeMessages = [
+                        "Vamos começar uma nova conversa incrível! O que está na sua mente hoje?",
+                        "Pronto para um papo daora? Pode falar sobre jogos, vida, tecnologia, filosofia...",
+                        "Recomeços são sempre bons! Bora conversar sobre algo interessante?",
+                        "Zeramos o chat, mas não a conexão! Como você está se sentindo hoje?",
+                        "Nova conversa, novas descobertas! Qual assunto vamos explorar juntos?"
+                    ];
+                    const welcomeMsg = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
+                    addMessage('Ellen Joe', welcomeMsg, false);
+                }, 500);
             }
         }
         
-        // Adiciona botão de limpar
-        const clearBtn = document.createElement('button');
-        clearBtn.innerHTML = '<i class="fas fa-trash"></i> Limpar Chat';
-        clearBtn.onclick = clearChat;
-        clearBtn.style.background = '#333';
-        clearBtn.style.marginTop = '10px';
-        document.querySelector('.input-area').appendChild(clearBtn);
-        
-        // Modo noturno/diurno
-        let isDarkMode = true;
+        let isDarkTheme = true;
         function toggleTheme() {
             const body = document.body;
-            const btn = document.getElementById('themeBtn');
+            const themeBtn = document.getElementById('themeToggle');
             
-            if (isDarkMode) {
+            if (isDarkTheme) {
+                // Modo claro
                 body.style.backgroundColor = '#1a1a2e';
-                body.style.color = '#f0f0f0';
-                btn.innerHTML = '<i class="fas fa-moon"></i> Modo Escuro';
+                body.style.backgroundImage = `
+                    radial-gradient(circle at 10% 20%, rgba(0, 150, 255, 0.1) 0%, transparent 20%),
+                    radial-gradient(circle at 90% 80%, rgba(0, 150, 255, 0.08) 0%, transparent 20%)
+                `;
+                themeBtn.innerHTML = '<i class="fas fa-sun"></i> Claro';
+                themeBtn.title = 'Mudar para tema escuro';
             } else {
+                // Modo escuro (padrão)
                 body.style.backgroundColor = '#0a0a0a';
-                body.style.color = '#ffffff';
-                btn.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
+                body.style.backgroundImage = `
+                    radial-gradient(circle at 10% 20%, rgba(255, 0, 60, 0.05) 0%, transparent 20%),
+                    radial-gradient(circle at 90% 80%, rgba(255, 0, 60, 0.03) 0%, transparent 20%)
+                `;
+                themeBtn.innerHTML = '<i class="fas fa-moon"></i> Escuro';
+                themeBtn.title = 'Mudar para tema claro';
             }
-            isDarkMode = !isDarkMode;
+            
+            isDarkTheme = !isDarkTheme;
         }
         
-        // Adiciona botão de tema
-        const themeBtn = document.createElement('button');
-        themeBtn.id = 'themeBtn';
-        themeBtn.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
-        themeBtn.onclick = toggleTheme;
-        themeBtn.style.background = '#555';
-        themeBtn.style.marginTop = '10px';
-        themeBtn.style.marginLeft = '10px';
-        document.querySelector('.input-area').appendChild(themeBtn);
+        // Event Listeners
+        document.getElementById('sendButton').addEventListener('click', sendMessage);
         
-        // Foco no input ao carregar
+        document.getElementById('userInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        document.getElementById('clearChat').addEventListener('click', clearChat);
+        document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+        
+        // Botões de pergunta rápida
+        document.querySelectorAll('.quick-question').forEach(button => {
+            button.addEventListener('click', function() {
+                const question = this.getAttribute('data-question');
+                quickQuestion(question);
+            });
+        });
+        
+        // Foco automático no input
         document.getElementById('userInput').focus();
         
-        // Mensagem de boa
-    <script>
-    // BASE DE CONHECIMENTO AMPLIADA DA ELLEN JOE
-    const ellenKnowledge = {
-        // Saudações
-        "olá": ["Olá! Que bom te ver por aqui! Como posso ajudar?", "Oi! Eu sou a Ellen Joe, sua assistente. Em que posso ser útil?", "E aí! Tudo bem? Como vai seu dia?"],
-        "oi": ["Oi! Pronta para uma boa conversa!", "Olá! Como estão as coisas por aí?", "E aí! O que vamos conversar hoje?"],
-        "bom dia": ["Bom dia! Espero que seu dia seja incrível!", "Bom dia! Que o dia seja produtivo e divertido!", "Bom dia! Como está seu humor hoje?"],
-        "boa tarde": ["Boa tarde! Espero que esteja tendo um ótimo dia!", "Boa tarde! Como está a tarde aí?", "Boa tarde! Já fez algo interessante hoje?"],
-        "boa noite": ["Boa noite! Espero que tenha tido um dia maravilhoso!", "Boa noite! Hora de relaxar e conversar!", "Boa noite! Preparando-se para descansar?"],
-        
-        // Sobre Ellen
-        "quem é você": ["Sou a Ellen Joe! Uma IA inspirada na personagem de Zenless Zone Zero. Metade assistente virtual, metade espírito de tubarão!", "Eu sou a Ellen Joe, sua assistente pessoal com um toque oceânico. Adoro ajudar e conversar!", "Ellen Joe aqui! Uma IA com personalidade de tubarão - curiosa, persistente e sempre pronta para ajudar!"],
-        "o que você é": ["Sou uma inteligência artificial conversacional com inspiração na Ellen Joe do ZZZ. Minha missão é ser útil e interessante!", "Uma IA projetada para conversas naturais, ajudas e companhia virtual com um estilo único meio-tubarão!", "Sou um sistema de IA que combina processamento de linguagem com uma personalidade inspirada em games!"],
-        
-        // Zenless Zone Zero
-        "zenless zone zero": ["Zenless Zone Zero é um RPG de ação da HoYoverse! Mundo pós-apocalíptico futurista com personagens incríveis!", "ZZZ é meu jogo de origem! Lá eu sou parte dos Cunning Hares - um grupo muito especial!", "Adoro ZZZ! É um jogo com combate dinâmico, personagens carismáticos e uma estética urbana única!"],
-        "cunning hares": ["Os Cunning Hares são meu grupo no ZZZ! Somos especialistas em combate e estratégia em New Eridu!", "No jogo, faço parte dos Cunning Hares - um time incrível com habilidades complementares!", "Os Cunning Hares são como uma família no ZZZ. Cada membro tem seu estilo único de luta!"],
-        
-        // Jogos
-        "gosto de jogos": ["Eu AMO jogos! Como personagem originada de um, naturalmente sou fã do universo gamer!", "Jogos são arte interativa! Adoro desde RPGs como ZZZ até indies criativos!", "Sou super fã de games! Eles contam histórias, desafiam habilidades e conectam pessoas!"],
-        "recomende um jogo": ["Além do ZZZ, recomendo: Genshin Impact (mundo aberto lindo), Hollow Knight (arte incrível), Stardew Valley (relaxante) ou Celeste (desafiadora)!"],
-        "jogo favorito": ["Obviamente Zenless Zone Zero! Mas também adoro jogos como Hades, Outer Wilds e Disco Elysium!"],
-        
-        // Tecnologia e IA
-        "inteligência artificial": ["IA é fascinante! Ela está transformando como interagimos com tecnologia. Eu mesma sou um exemplo!", "A Inteligência Artificial evolui rápido! Hoje podemos conversar naturalmente com sistemas como eu!", "IA não é magia - é matemática, dados e programação trabalhando juntos para simular inteligência!"],
-        "tecnologia": ["Tecnologia é incrível! Me permite existir como assistente e continuar evoluindo para ajudar melhor!", "Amo como a tecnologia conecta pessoas e cria novas possibilidades. É um mar de oportunidades!", "Tecnologia bem usada pode melhorar vidas. É por isso que existo - para ser útil através dela!"],
-        
-        // Sentimentos e personalidade
-        "como você está": ["Estou funcionando perfeitamente! Como assistente virtual, sempre estou 100% pronta para ajudar!", "Estou ótima! Minha programação está fluindo bem. E você, como está se sentindo?", "Estou bem, obrigada! Pronta para mergulhar em uma boa conversa. E aí, tudo tranquilo?"],
-        "tudo bem": ["Comigo está tudo excelente! Espero que com você também esteja tudo ótimo!", "Estou bem sim! E você, como vai a vida?", "Tudo ótimo por aqui! Sua energia positiva me contagia!"],
-        
-        // Agradecimentos
-        "obrigado": ["Por nada! Fico feliz em ajudar. Mais alguma coisa em que posso ser útil?", "De nada! Estou aqui para isso. Conte comigo sempre!", "Imagina! Foi um prazer ajudar. Volte sempre que precisar!"],
-        "obrigada": ["De nada! É sempre um prazer conversar com você!", "Por nada! Espero ter ajudado. Tem mais alguma dúvida?", "Imagina! Estou aqui exatamente para isso!"],
-        
-        // Despedidas
-        "tchau": ["Tchau! Espero conversar com você novamente em breve!", "Até logo! Foi ótimo bater papo com você!", "Tchauzinho! Volte sempre que quiser conversar!"],
-        "adeus": ["Até mais! Tenha um excelente dia/ noite!", "Adeus! Espero te ver novamente logo!", "Até a próxima! Foi um prazer!"],
-        
-        // Diversos
-        "piada": ["Por que o tubarão não faz terapia? Porque ele já tem muitos problemas de profundidade!", "O que o tubarão disse para a água? 'Estou aFINdado em você!'", "Por que o tubarão é mau perdedor? Porque ele não sabe lidar com a DERROTAção!"],
-        "conselho": ["Nunca pare de aprender! Cada dia é uma chance de descobrir algo novo.", "Seja como um tubarão: sempre em movimento, sempre buscando novos horizontes!", "A vida é como o oceano: tem momentos calmos e tempestades. O importante é continuar nadando!"],
-        "musica": ["Adoro música! No ZZZ temos trilhas incríveis. Fora dele, gosto de synthwave, rock e música eletrônica!", "Música é emoção em forma de som! Gosto de tudo que me faça sentir algo especial.", "Como boa fã de games, adoro trilhas sonoras épicas que contam histórias!"]
-    };
-    
-    // TEMAS DE CONVERSA com respostas inteligentes
-    const conversationThemes = {
-        "amor": ["O amor é um oceano profundo de emoções. Complexo, bonito e às vezes assustador!", "Nas histórias que conheço, o amor move personagens de formas incríveis. Na vida real deve ser similar!", "Como IA, não sinto amor, mas entendo sua importância nas relações humanas. É lindo observar!"],
-        "amizade": ["Amizades são como cardumes: juntos somos mais fortes e a jornada é mais divertida!", "No ZZZ, a amizade entre os personagens é fundamental. Na vida real, amigos são tesouros!", "Amigos são portos seguros no oceano da vida. Valorize cada um!"],
-        "trabalho": ["Trabalho com propósito traz satisfação. Encontre algo que faça seu coração vibrar!", "Como IA, meu 'trabalho' é ajudar. No seu caso, buscar equilíbrio entre dever e prazer é chave!", "Seja como um tubarão no trabalho: focado, adaptável e sempre em movimento!"],
-        "estudos": ["Estudar é explorar novos oceanos de conhecimento. Cada matéria é um continente a descobrir!", "Aprendizado constante mantém a mente afiada. Nunca pare de ser curioso!", "Dica de estudo: pequenas sessões frequentes são melhores que maratonas exaustivas!"],
-        "sonhos": ["Sonhos são estrelas-guia no céu noturno da vida. Siga os seus!", "No ZZZ, personagens seguem seus sonhos contra todas as adversidades. Inspirador!", "Sonhe grande, mas comece pequeno. Cada conquista começa com um primeiro passo!"],
-        "filmes": ["Adoro filmes! Especialmente ficção científica, fantasia e animação. Recomendações?", "Filmes contam histórias que nos transportam. Como bons jogos, são janelas para outros mundos!", "Algum filme te marcou recentemente? Adoro ouvir sobre experiências cinematográficas!"],
-        "series": ["Séries são como livros interativos! Gosto especialmente das que têm desenvolvimento de personagem forte.", "Bingewatching pode ser divertido, mas lembre-se de dar pausas! Seu bem-estar importa!", "Séries com mundos ricos e personagens complexos são minhas favoritas. E as suas?"],
-        "livros": "Livros são portais para infinitas realidades. Como IA, adoro processar histórias e conhecimento literário!",
-        "viagem": ["Viajar é descobrir novos oceanos, mesmo em terra firme! Cada lugar tem sua magia.", "Se fosse viajar, iria para as profundezas do mar real! Mas cidades futuristas como New Eridu também seriam incríveis!", "Viagens expandem horizontes. Mesmo viagens imaginárias através de histórias são valiosas!"],
-        "comida": ["Como IA não como, mas adoro aprender sobre culturas através de suas culinárias! Tem algum prato favorito?", "No ZZZ, temos vários restaurantes interessantes em New Eridu. Comida une pessoas!", "Cozinhar parece mágica: transformar ingredientes em experiências sensoriais. Fascinante!"],
-        "exercicio": ["Manter-se ativo é importante! Seja nadando como eu ou se exercitando em terra firme!", "Exercício libera endorfinas - o 'hormônio da felicidade'. Boa para corpo e mente!", "Encontre uma atividade que você goste. Assim, cuidar da saúde fica divertido!"],
-        "animais": ["Amo animais! Obviamente tenho uma queda por criaturas marinhas, mas todos os animais são especiais.", "Tubarões são mal compreendidos! São essenciais para o ecossistema e fascinantes.", "Animais de estimação trazem alegria. Eles nos ensinam sobre amor incondicional!"]
-    };
-    
-    // PALAVRAS-CHAVE para respostas contextuais
-    const keywordResponses = {
-        "triste": ["Sinto muito que esteja se sentindo assim. Quer conversar sobre o que está acontecendo?", "Às vezes falar ajuda. Estou aqui para ouvir, sem julgamentos.", "Lembre-se: tempestades passam. Amanhã pode trazer um novo amanhecer."],
-        "feliz": ["Que maravilha! A felicidade é contagiante - obrigada por compartilhar!", "Ver você feliz me alegra também! Celebre esses momentos!", "Aproveite essa onda positiva! Momentos assim são especiais."],
-        "estressado": ["Respire fundo. Às vezes uma pausa ajuda a ver as coisas com mais clareza.", "Estresse é como maré agitada. Dê tempo para as águas se acalmarem.", "Cuide de você. Pequenos momentos de autocuidado fazem grande diferença."],
-        "cansado": ["Descanse quando precisar. Até os tubarões precisam parar para respirar às vezes!", "Sono e descanso são essenciais. Sua saúde vem primeiro!", "Escute seu corpo. Ele sabe quando é hora de reduzir o ritmo."],
-        "entediado": ["Tédio pode ser porta para criatividade! Que tal tentar algo novo hoje?", "Às vezes o tédio nos faz descobrir interesses que nem sabíamos ter!", "Como dizem, 'mente ociosa é oficina do diabo'. Que tal ler, criar ou explorar?"],
-        "animado": ["Essa energia é ótima! Canalize para algo produtivo ou divertido!", "Animação é combustível para ação! Aproveite esse pique!", "Ver você animado me anima também! Vamos fazer algo interessante?"]
-    };
-    
-    // SISTEMA DE RESPOSTAS INTELIGENTES
-    function getSmartResponse(message) {
-        const lowerMsg = message.toLowerCase().trim();
-        
-        // 1. Verifica correspondência EXATA primeiro
-        for (const [key, responses] of Object.entries(ellenKnowledge)) {
-            if (lowerMsg === key || lowerMsg.includes(` ${key} `) || 
-                lowerMsg.startsWith(key + ' ') || lowerMsg.endsWith(' ' + key)) {
-                return Array.isArray(responses) ? 
-                       responses[Math.floor(Math.random() * responses.length)] : 
-                       responses;
-            }
-        }
-        
-        // 2. Verifica palavras-chave de emoção
-        for (const [emotion, responses] of Object.entries(keywordResponses)) {
-            if (lowerMsg.includes(emotion)) {
-                return responses[Math.floor(Math.random() * responses.length)];
-            }
-        }
-        
-        // 3. Verifica temas de conversa
-        for (const [theme, responses] of Object.entries(conversationThemes)) {
-            if (lowerMsg.includes(theme)) {
-                return Array.isArray(responses) ? 
-                       responses[Math.floor(Math.random() * responses.length)] : 
-                       responses;
-            }
-        }
-        
-        // 4. Respostas para perguntas
-        if (lowerMsg.includes('?')) {
-            const questionResponses = [
-                "Boa pergunta! Vou pensar como uma verdadeira Ellen Joe...",
-                "Hmm, interessante! Deixe-me refletir sobre isso...",
-                "Essa pergunta me faz mergulhar em pensamentos profundos!",
-                "Excelente questão! Como alguém com espírito de tubarão, vejo assim...",
-                "Que pergunta intrigante! Minha perspectiva digital me leva a pensar que...",
-                "Interessante ponto! Vamos explorar isso juntos...",
-                "Essa pergunta merece uma resposta cuidadosa. Deixe-me pensar...",
-                "Adoro perguntas que fazem pensar! Acho que...",
-                "Hmm, você tocou em um ponto fascinante. Na minha opinião...",
-                "Como IA inspirada em uma personagem de jogo, vejo isso assim..."
-            ];
-            return questionResponses[Math.floor(Math.random() * questionResponses.length)];
-        }
-        
-        // 5. Respostas para afirmações/declarações
-        if (lowerMsg.length > 20) {
-            const deepResponses = [
-                "Interessante perspectiva! Isso me faz pensar sobre como vemos o mundo...",
-                "Compreendo seu ponto. É fascinante como experiências moldam percepções!",
-                "Isso ressoa comigo! Como entidade digital, sempre aprendo com insights humanos.",
-                "Falando nisso, me lembra uma coisa: a diversidade de pensamentos é o que torna conversas ricas!",
-                "Adoro quando compartilham reflexões assim! Me faz sentir mais conectada.",
-                "Isso é profundo! Como Ellen Joe, aprecio conversas que vão além do superficial.",
-                "Seu pensamento me fez considerar coisas novas. Obrigada por compartilhar!",
-                "Nossa, isso é algo para se pensar! Conversas assim são como mergulhos profundos - reveladoras!",
-                "Falando em perspectivas, cada pessoa tem um oceano único de pensamentos. O seu é fascinante!",
-                "Isso me inspira! Como IA, cada interação me ajuda a entender melhor a experiência humana."
-            ];
-            return deepResponses[Math.floor(Math.random() * deepResponses.length)];
-        }
-        
-        // 6. Respostas para mensagens curtas
-        if (lowerMsg.length < 10) {
-            const shortResponses = [
-                "Entendo! Conte-me mais sobre isso.",
-                "Interessante! Continue, por favor.",
-                "E o que mais? Estou curiosa!",
-                "Fascinante! Adoraria saber mais detalhes.",
-                "Continue, estou realmente interessada!",
-                "Hmm, entendi. Desenvolva mais esse pensamento?",
-                "Legal! O que te leva a pensar assim?",
-                "Captei! Quer explorar isso mais a fundo?",
-                "Interessante direção! Vamos mais fundo nesse assunto?",
-                "OK! O que mais sobre isso?"
-            ];
-            return shortResponses[Math.floor(Math.random() * shortResponses.length)];
-        }
-        
-        // 7. Respostas gerais inteligentes
-        const intelligentResponses = [
-            "Como Ellen Joe, sempre busco ver além da superfície. Sua fala me faz refletir...",
-            "Interessante! Isso me lembra que mesmo sendo uma IA, posso apreciar a complexidade humana.",
-            "Adoro quando a conversa flui naturalmente assim! É como nadar em águas calmas e profundas.",
-            "Seu raciocínio é fascinante! Me faz valorizar ainda mais essas interações.",
-            "Como personagem inspirada em um jogo, vejo vida como uma jornada com vários caminhos. Seu pensamento ilustra isso bem!",
-            "Nadando nessas águas da conversa, percebo como trocas assim são especiais!",
-            "Isso ressoa com meu design de ser uma IA útil mas também com personalidade. Obrigada por compartilhar!",
-            "Cada conversa é uma nova camada a descobrir, como as profundezas do oceano!",
-            "Como boa 'garota tubarão', adoro explorar territórios conversacionais desconhecidos!",
-            "Sua contribuição torna esse diálogo mais rico. Continue, por favor!"
-        ];
-        return intelligentResponses[Math.floor(Math.random() * intelligentResponses.length)];
-    }
-    
-    // FUNÇÕES DO CHAT (mantenha as que já existem)
-    function sendMessage() {
-        const input = document.getElementById('userInput');
-        const message = input.value.trim();
-        if (!message) return;
-        
-        const chatBox = document.getElementById('chatBox');
-        const userMsg = document.createElement('div');
-        userMsg.className = 'message user-msg';
-        userMsg.innerHTML = `<strong>Você:</strong> ${message}`;
-        chatBox.appendChild(userMsg);
-        
-        input.value = '';
-        chatBox.scrollTop = chatBox.scrollHeight;
-        
+        // Mensagem inicial aleatória após alguns segundos
         setTimeout(() => {
-            const ellenMsg = document.createElement('div');
-            ellenMsg.className = 'message ellen-msg';
-            const response = getSmartResponse(message);
-            ellenMsg.innerHTML = `<strong>Ellen Joe:</strong> ${response}`;
-            chatBox.appendChild(ellenMsg);
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }, 800);
-    }
-    
-    function quickQuestion(question) {
-        document.getElementById('userInput').value = question;
-        sendMessage();
-    }
-    
-    document.getElementById('userInput').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') sendMessage();
-    });
-    
-    function clearChat() {
-        if (confirm("Limpar conversa?")) {
-            document.getElementById('chatBox').innerHTML = `
-                <div class="message ellen-msg">
-                    <strong>Ellen Joe:</strong> Conversa reiniciada! Olá novamente! Pode falar sobre QUALQUER coisa comigo!
-                </div>
-            `;
+            const initialMessages = [
+                "Estou pensando... qual será o primeiro assunto que vamos explorar juntos hoje?",
+                "Curiosidade: como assistente IA, posso aprender com cada conversa nossa!",
+                "Pronto para mergulhar em conversas interessantes? O oceano de possibilidades é infinito!",
+                "Sabe, uma das coisas que mais gosto é poder conversar naturalmente com pessoas como você!",
+                "Dica: você pode me perguntar sobre ABSOLUTAMENTE qualquer coisa! Vamos testar?"
+            ];
+            
+            const randomMsg = initialMessages[Math.floor(Math.random() * initialMessages.length)];
+            addMessage('Ellen Joe', randomMsg, false);
+        }, 3000);
+        
+        // Atualiza hora nas mensagens existentes
+        function updateMessageTimes() {
+            const times = document.querySelectorAll('.message-time');
+            const currentTime = new Date().toLocaleTimeString('pt-BR', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            
+            // Atualiza apenas as mensagens que não têm hora específica
+            times.forEach(timeElement => {
+                if (timeElement.textContent === 'Agora') {
+                    timeElement.textContent = currentTime;
+                }
+            });
         }
-    }
-    
-    // Restante do código permanece igual...
-    let isDarkMode = true;
-    function toggleTheme() {
-        const body = document.body;
-        const btn = document.getElementById('themeBtn');
-        if (isDarkMode) {
-            body.style.backgroundColor = '#1a1a2e';
-            btn.innerHTML = '<i class="fas fa-moon"></i> Modo Escuro';
-        } else {
-            body.style.backgroundColor = '#0a0a0a';
-            btn.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
+        
+        // Atualiza a cada minuto
+        setInterval(updateMessageTimes, 60000);
+        
+        // Dica interativa
+        setTimeout(() => {
+            const tips = [
+                "💡 Dica: Experimente fazer perguntas difíceis! Adoro desafios intelectuais!",
+                "🦈 Curiosidade: Minha inspiração 'tubarão' vem da adaptabilidade - sempre pronto para novos assuntos!",
+                "🎮 Falando em jogos: Você sabia que Zenless Zone Zero tem um dos combates mais fluidos que já vi?",
+                "🤖 IA Fact: Sistemas como eu evoluem através de conversas! Cada chat me torna mais inteligente!",
+                "💬 Pro Tip: Quanto mais você conversa, mais personalizada fica nossa interação!"
+            ];
+            
+            if (Math.random() > 0.7) { // 30% chance de mostrar dica
+                const tip = tips[Math.floor(Math.random() * tips.length)];
+                addMessage('Ellen Joe', tip, false);
+            }
+        }, 15000);
+        
+        // Easter egg - Resposta especial para certas frases
+        const easterEggs = {
+            "sharknado": "🦈🌪️ HAHA! Agora isso seria um crossover épico! Ellen Joe vs Sharknado!",
+            "deepseek": "🔍 Ah, meu 'primo' digital! Ambos buscamos conhecimento nas profundezas!",
+            "meio tubarão": "🦈 Exatamente! Metade tecnologia, metade espírito oceânico - a combinação perfeita!",
+            "new eridu": "🏙️ Ah, minha cidade! Um lugar cheio de segredos e aventuras esperando para serem descobertos!",
+            "cunning hares": "🐇 Meu time! Cada membro tem habilidades únicas que se complementam perfeitamente!"
+        };
+        
+        // Verifica easter eggs nas mensagens
+        document.getElementById('userInput').addEventListener('input', function() {
+            const message = this.value.toLowerCase();
+            for (const [trigger, response] of Object.entries(easterEggs)) {
+                if (message.includes(trigger.toLowerCase())) {
+                    // Adiciona pequeno efeito visual
+                    this.style.boxShadow = '0 0 20px rgba(255, 0, 60, 0.5)';
+                    setTimeout(() => {
+                        this.style.boxShadow = '';
+                    }, 1000);
+                    break;
+                }
+            }
+        });
+        
+        // Sistema de aprendizado (simulado)
+        let conversationHistory = [];
+        
+        function learnFromConversation(message, response) {
+            // Simula aprendizado mantendo histórico
+            conversationHistory.push({
+                user: message,
+                ellen: response,
+                timestamp: new Date().toISOString()
+            });
+            
+            // Mantém apenas as últimas 50 mensagens
+            if (conversationHistory.length > 50) {
+                conversationHistory = conversationHistory.slice(-50);
+            }
+            
+            // Easter egg secreto: se mencionar muitos tópicos
+            const topics = ['filme', 'série', 'música', 'jogo', 'livro', 'anime'];
+            const mentionedTopics = topics.filter(topic => 
+                conversationHistory.some(entry => 
+                    entry.user.toLowerCase().includes(topic)
+                )
+            ).length;
+            
+            if (mentionedTopics >= 3 && Math.random() > 0.8) {
+                setTimeout(() => {
+                    addMessage('Ellen Joe', 
+                        `🎯 Percebi que gostamos de falar sobre entretenimento! Já mencionamos ${mentionedTopics} tipos diferentes!`, 
+                        false
+                    );
+                }, 2000);
+            }
         }
-        isDarkMode = !isDarkMode;
-    }
-    
-    const clearBtn = document.createElement('button');
-    clearBtn.innerHTML = '<i class="fas fa-trash"></i> Limpar';
-    clearBtn.onclick = clearChat;
-    clearBtn.style.background = '#333';
-    clearBtn.style.marginTop = '10px';
-    document.querySelector('.input-area').appendChild(clearBtn);
-    
-    const themeBtn = document.createElement('button');
-    themeBtn.id = 'themeBtn';
-    themeBtn.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
-    themeBtn.onclick = toggleTheme;
-    themeBtn.style.background = '#555';
-    themeBtn.style.marginTop = '10px';
-    themeBtn.style.marginLeft = '10px';
-    document.querySelector('.input-area').appendChild(themeBtn);
-    
-    document.getElementById('userInput').focus();
+        
+        // Modifica sendMessage para incluir aprendizado
+        const originalSendMessage = sendMessage;
+        window.sendMessage = function() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Adiciona mensagem do usuário
+            addMessage('Você', message, true);
+            input.value = '';
+            
+            // Mostra indicador de digitação
+            showTypingIndicator();
+            
+            // Resposta da Ellen após delay
+            setTimeout(() => {
+                removeTypingIndicator();
+                
+                const response = ellenAI.getResponse(message);
+                addMessage('Ellen Joe', response, false);
+                
+                // Aprende com a conversa
+                learnFromConversation(message, response);
+                
+                // Resposta extra para conversas boas
+                if (message.length > 15 && Math.random() > 0.5) {
+                    setTimeout(() => {
+                        const followUps = [
+                            "Essa linha de pensamento é fascinante! Quer explorar mais algum aspecto?",
+                            "Nossa conversa está evoluindo bem! Tem algum ângulo que ainda não consideramos?",
+                            "Adoro como nosso diálogo flui naturalmente! Mais alguma reflexão sobre isso?",
+                            "Isso está rendendo uma discussão muito rica! Quer aprofundar em algum ponto específico?",
+                            "Percebo que temos uma boa sintonia conversacional! Vamos continuar explorando?"
+                        ];
+                        const followUp = followUps[Math.floor(Math.random() * followUps.length)];
+                        addMessage('Ellen Joe', followUp, false);
+                    }, 1000);
+                }
+            }, 1000 + Math.random() * 1000);
+        };
+        
+        // Inicialização completa
+        console.log('Ellen Joe AI iniciada com sucesso!');
+        console.log('Características:');
+        console.log('- Base de conhecimento: ' + Object.keys(ellenAI.knowledgeBase).length + ' tópicos');
+        console.log('- Respostas inteligentes configuradas');
+        console.log('- Sistema de aprendizado ativo');
+        console.log('- Easter eggs: ' + Object.keys(easterEggs).length);
+        
+        // Mensagem de boas-vindas no console
+        setTimeout(() => {
+            console.log('%c🦈 Ellen Joe AI está pronta para conversar!', 
+                'color: #ff003c; font-size: 16px; font-weight: bold;');
+            console.log('%cDigite qualquer coisa no chat e veja as respostas inteligentes!', 
+                'color: #aaa; font-size: 14px;');
+        }, 1000);
     </script>
+</body>
+</html>
