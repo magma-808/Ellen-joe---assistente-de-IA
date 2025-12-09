@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Analisador de Imagem</title>
+<style>
+    body {
+        background: black;
+        color: red;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 20px;
+    }
+    #preview {
+        max-width: 300px;
+        margin-top: 20px;
+        border: 2px solid red;
+        display: none;
+    }
+    #descricao {
+        margin-top: 20px;
+        font-size: 18px;
+        color: red;
+    }
+    input {
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+
+<h1>Analisador de Imagem</h1>
+
+<input type="file" id="imageInput" accept="image/*">
+
+<img id="preview">
+
+<p id="descricao">A descrição aparecerá aqui.</p>
+
+<script>
+async function analisarImagem(base64img) {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer SUA_API_KEY_AQUI"
+        },
+        body: JSON.stringify({
+            model: "gpt-4o-mini",
+            messages: [
+                {
+                    role: "user",
+                    content: [
+                        { type: "input_text", text: "Descreva a imagem de forma detalhada." },
+                        { type: "input_image", image_url: base64img }
+                    ]
+                }
+            ]
+        })
+    });
+
+    const data = await response.json();
+    return data.choices[0].message.content;
+}
+
+document.getElementById("imageInput").addEventListener("change", async function () {
+    const file = this.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    
+    reader.onload = async function (e) {
+        const base64 = e.target.result;
+
+        // mostrar imagem
+        document.getElementById("preview").src = base64;
+        document.getElementById("preview").style.display = "block";
+
+        document.getElementById("descricao").textContent = "Analisando...";
+
+        // pedir descrição à IA
+        const texto = await analisarImagem(base64);
+
+        document.getElementById("descricao").textContent = texto;
+    };
+
+    reader.readAsDataURL(file);
+});
+</script>
+
+</body>
+</html>
+body {
+    background: black;
+    color: red;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    color: red;
+}
+
+#preview {
+    max-width: 300px;
+    margin-top: 20px;
+    border: 2px solid red;
+    display: none;
+}
+
+#descricao {
+    margin-top: 20px;
+    font-size: 18px;
+    color: red;
+}
+
+input {
+    margin-top: 20px;
+    color: red;
+}
+async function analisarImagem(base64img) {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer SUA_API_KEY_AQUI"
+        },
+        body: JSON.stringify({
+            model: "gpt-4o-mini",
+            messages: [
+                {
+                    role: "user",
+                    content: [
+                        { type: "input_text", text: "Descreva a imagem de forma detalhada." },
+                        { type: "input_image", image_url: base64img }
+                    ]
+                }
+            ]
+        })
+    });
+
+    const data = await response.json();
+    return data.choices[0].message.content;
+}
+
+document.getElementById("imageInput").addEventListener("change", async function () {
+    const file = this.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    
+    reader.onload = async function (e) {
+        const base64 = e.target.result;
+
+        document.getElementById("preview").src = base64;
+        document.getElementById("preview").style.display = "block";
+
+        document.getElementById("descricao").textContent = "Analisando...";
+
+        const texto = await analisarImagem(base64);
+
+        document.getElementById("descricao").textContent = texto;
+    };
+
+    reader.readAsDataURL(file);
+});
