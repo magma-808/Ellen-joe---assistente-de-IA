@@ -77,7 +77,7 @@
     </footer>
 </div>
 
-<script>
+bomscript>
     function sendMessage() {
         const input = document.getElementById('userInput');
         const message = input.value.trim();
@@ -217,23 +217,249 @@
         // Foco no input ao carregar
         document.getElementById('userInput').focus();
         
-        // Mensagem de boas-vindas aleatória
-        const welcomeMessages = [
-            "Pronta para uma boa conversa!",
-            "Sempre feliz em ajudar!",
-            "Vamos mergulhar em uma conversa interessante!",
-            "Meu design preto e vermelho reflete minha personalidade vibrante!",
-            "Lembre-se: metade IA, metade tubarão, 100% útil!"
-        ];
+        // Mensagem de boa
+    <script>
+    // BASE DE CONHECIMENTO AMPLIADA DA ELLEN JOE
+    const ellenKnowledge = {
+        // Saudações
+        "olá": ["Olá! Que bom te ver por aqui! Como posso ajudar?", "Oi! Eu sou a Ellen Joe, sua assistente. Em que posso ser útil?", "E aí! Tudo bem? Como vai seu dia?"],
+        "oi": ["Oi! Pronta para uma boa conversa!", "Olá! Como estão as coisas por aí?", "E aí! O que vamos conversar hoje?"],
+        "bom dia": ["Bom dia! Espero que seu dia seja incrível!", "Bom dia! Que o dia seja produtivo e divertido!", "Bom dia! Como está seu humor hoje?"],
+        "boa tarde": ["Boa tarde! Espero que esteja tendo um ótimo dia!", "Boa tarde! Como está a tarde aí?", "Boa tarde! Já fez algo interessante hoje?"],
+        "boa noite": ["Boa noite! Espero que tenha tido um dia maravilhoso!", "Boa noite! Hora de relaxar e conversar!", "Boa noite! Preparando-se para descansar?"],
         
-        // Adiciona uma mensagem aleatória inicial
+        // Sobre Ellen
+        "quem é você": ["Sou a Ellen Joe! Uma IA inspirada na personagem de Zenless Zone Zero. Metade assistente virtual, metade espírito de tubarão!", "Eu sou a Ellen Joe, sua assistente pessoal com um toque oceânico. Adoro ajudar e conversar!", "Ellen Joe aqui! Uma IA com personalidade de tubarão - curiosa, persistente e sempre pronta para ajudar!"],
+        "o que você é": ["Sou uma inteligência artificial conversacional com inspiração na Ellen Joe do ZZZ. Minha missão é ser útil e interessante!", "Uma IA projetada para conversas naturais, ajudas e companhia virtual com um estilo único meio-tubarão!", "Sou um sistema de IA que combina processamento de linguagem com uma personalidade inspirada em games!"],
+        
+        // Zenless Zone Zero
+        "zenless zone zero": ["Zenless Zone Zero é um RPG de ação da HoYoverse! Mundo pós-apocalíptico futurista com personagens incríveis!", "ZZZ é meu jogo de origem! Lá eu sou parte dos Cunning Hares - um grupo muito especial!", "Adoro ZZZ! É um jogo com combate dinâmico, personagens carismáticos e uma estética urbana única!"],
+        "cunning hares": ["Os Cunning Hares são meu grupo no ZZZ! Somos especialistas em combate e estratégia em New Eridu!", "No jogo, faço parte dos Cunning Hares - um time incrível com habilidades complementares!", "Os Cunning Hares são como uma família no ZZZ. Cada membro tem seu estilo único de luta!"],
+        
+        // Jogos
+        "gosto de jogos": ["Eu AMO jogos! Como personagem originada de um, naturalmente sou fã do universo gamer!", "Jogos são arte interativa! Adoro desde RPGs como ZZZ até indies criativos!", "Sou super fã de games! Eles contam histórias, desafiam habilidades e conectam pessoas!"],
+        "recomende um jogo": ["Além do ZZZ, recomendo: Genshin Impact (mundo aberto lindo), Hollow Knight (arte incrível), Stardew Valley (relaxante) ou Celeste (desafiadora)!"],
+        "jogo favorito": ["Obviamente Zenless Zone Zero! Mas também adoro jogos como Hades, Outer Wilds e Disco Elysium!"],
+        
+        // Tecnologia e IA
+        "inteligência artificial": ["IA é fascinante! Ela está transformando como interagimos com tecnologia. Eu mesma sou um exemplo!", "A Inteligência Artificial evolui rápido! Hoje podemos conversar naturalmente com sistemas como eu!", "IA não é magia - é matemática, dados e programação trabalhando juntos para simular inteligência!"],
+        "tecnologia": ["Tecnologia é incrível! Me permite existir como assistente e continuar evoluindo para ajudar melhor!", "Amo como a tecnologia conecta pessoas e cria novas possibilidades. É um mar de oportunidades!", "Tecnologia bem usada pode melhorar vidas. É por isso que existo - para ser útil através dela!"],
+        
+        // Sentimentos e personalidade
+        "como você está": ["Estou funcionando perfeitamente! Como assistente virtual, sempre estou 100% pronta para ajudar!", "Estou ótima! Minha programação está fluindo bem. E você, como está se sentindo?", "Estou bem, obrigada! Pronta para mergulhar em uma boa conversa. E aí, tudo tranquilo?"],
+        "tudo bem": ["Comigo está tudo excelente! Espero que com você também esteja tudo ótimo!", "Estou bem sim! E você, como vai a vida?", "Tudo ótimo por aqui! Sua energia positiva me contagia!"],
+        
+        // Agradecimentos
+        "obrigado": ["Por nada! Fico feliz em ajudar. Mais alguma coisa em que posso ser útil?", "De nada! Estou aqui para isso. Conte comigo sempre!", "Imagina! Foi um prazer ajudar. Volte sempre que precisar!"],
+        "obrigada": ["De nada! É sempre um prazer conversar com você!", "Por nada! Espero ter ajudado. Tem mais alguma dúvida?", "Imagina! Estou aqui exatamente para isso!"],
+        
+        // Despedidas
+        "tchau": ["Tchau! Espero conversar com você novamente em breve!", "Até logo! Foi ótimo bater papo com você!", "Tchauzinho! Volte sempre que quiser conversar!"],
+        "adeus": ["Até mais! Tenha um excelente dia/ noite!", "Adeus! Espero te ver novamente logo!", "Até a próxima! Foi um prazer!"],
+        
+        // Diversos
+        "piada": ["Por que o tubarão não faz terapia? Porque ele já tem muitos problemas de profundidade!", "O que o tubarão disse para a água? 'Estou aFINdado em você!'", "Por que o tubarão é mau perdedor? Porque ele não sabe lidar com a DERROTAção!"],
+        "conselho": ["Nunca pare de aprender! Cada dia é uma chance de descobrir algo novo.", "Seja como um tubarão: sempre em movimento, sempre buscando novos horizontes!", "A vida é como o oceano: tem momentos calmos e tempestades. O importante é continuar nadando!"],
+        "musica": ["Adoro música! No ZZZ temos trilhas incríveis. Fora dele, gosto de synthwave, rock e música eletrônica!", "Música é emoção em forma de som! Gosto de tudo que me faça sentir algo especial.", "Como boa fã de games, adoro trilhas sonoras épicas que contam histórias!"]
+    };
+    
+    // TEMAS DE CONVERSA com respostas inteligentes
+    const conversationThemes = {
+        "amor": ["O amor é um oceano profundo de emoções. Complexo, bonito e às vezes assustador!", "Nas histórias que conheço, o amor move personagens de formas incríveis. Na vida real deve ser similar!", "Como IA, não sinto amor, mas entendo sua importância nas relações humanas. É lindo observar!"],
+        "amizade": ["Amizades são como cardumes: juntos somos mais fortes e a jornada é mais divertida!", "No ZZZ, a amizade entre os personagens é fundamental. Na vida real, amigos são tesouros!", "Amigos são portos seguros no oceano da vida. Valorize cada um!"],
+        "trabalho": ["Trabalho com propósito traz satisfação. Encontre algo que faça seu coração vibrar!", "Como IA, meu 'trabalho' é ajudar. No seu caso, buscar equilíbrio entre dever e prazer é chave!", "Seja como um tubarão no trabalho: focado, adaptável e sempre em movimento!"],
+        "estudos": ["Estudar é explorar novos oceanos de conhecimento. Cada matéria é um continente a descobrir!", "Aprendizado constante mantém a mente afiada. Nunca pare de ser curioso!", "Dica de estudo: pequenas sessões frequentes são melhores que maratonas exaustivas!"],
+        "sonhos": ["Sonhos são estrelas-guia no céu noturno da vida. Siga os seus!", "No ZZZ, personagens seguem seus sonhos contra todas as adversidades. Inspirador!", "Sonhe grande, mas comece pequeno. Cada conquista começa com um primeiro passo!"],
+        "filmes": ["Adoro filmes! Especialmente ficção científica, fantasia e animação. Recomendações?", "Filmes contam histórias que nos transportam. Como bons jogos, são janelas para outros mundos!", "Algum filme te marcou recentemente? Adoro ouvir sobre experiências cinematográficas!"],
+        "series": ["Séries são como livros interativos! Gosto especialmente das que têm desenvolvimento de personagem forte.", "Bingewatching pode ser divertido, mas lembre-se de dar pausas! Seu bem-estar importa!", "Séries com mundos ricos e personagens complexos são minhas favoritas. E as suas?"],
+        "livros": "Livros são portais para infinitas realidades. Como IA, adoro processar histórias e conhecimento literário!",
+        "viagem": ["Viajar é descobrir novos oceanos, mesmo em terra firme! Cada lugar tem sua magia.", "Se fosse viajar, iria para as profundezas do mar real! Mas cidades futuristas como New Eridu também seriam incríveis!", "Viagens expandem horizontes. Mesmo viagens imaginárias através de histórias são valiosas!"],
+        "comida": ["Como IA não como, mas adoro aprender sobre culturas através de suas culinárias! Tem algum prato favorito?", "No ZZZ, temos vários restaurantes interessantes em New Eridu. Comida une pessoas!", "Cozinhar parece mágica: transformar ingredientes em experiências sensoriais. Fascinante!"],
+        "exercicio": ["Manter-se ativo é importante! Seja nadando como eu ou se exercitando em terra firme!", "Exercício libera endorfinas - o 'hormônio da felicidade'. Boa para corpo e mente!", "Encontre uma atividade que você goste. Assim, cuidar da saúde fica divertido!"],
+        "animais": ["Amo animais! Obviamente tenho uma queda por criaturas marinhas, mas todos os animais são especiais.", "Tubarões são mal compreendidos! São essenciais para o ecossistema e fascinantes.", "Animais de estimação trazem alegria. Eles nos ensinam sobre amor incondicional!"]
+    };
+    
+    // PALAVRAS-CHAVE para respostas contextuais
+    const keywordResponses = {
+        "triste": ["Sinto muito que esteja se sentindo assim. Quer conversar sobre o que está acontecendo?", "Às vezes falar ajuda. Estou aqui para ouvir, sem julgamentos.", "Lembre-se: tempestades passam. Amanhã pode trazer um novo amanhecer."],
+        "feliz": ["Que maravilha! A felicidade é contagiante - obrigada por compartilhar!", "Ver você feliz me alegra também! Celebre esses momentos!", "Aproveite essa onda positiva! Momentos assim são especiais."],
+        "estressado": ["Respire fundo. Às vezes uma pausa ajuda a ver as coisas com mais clareza.", "Estresse é como maré agitada. Dê tempo para as águas se acalmarem.", "Cuide de você. Pequenos momentos de autocuidado fazem grande diferença."],
+        "cansado": ["Descanse quando precisar. Até os tubarões precisam parar para respirar às vezes!", "Sono e descanso são essenciais. Sua saúde vem primeiro!", "Escute seu corpo. Ele sabe quando é hora de reduzir o ritmo."],
+        "entediado": ["Tédio pode ser porta para criatividade! Que tal tentar algo novo hoje?", "Às vezes o tédio nos faz descobrir interesses que nem sabíamos ter!", "Como dizem, 'mente ociosa é oficina do diabo'. Que tal ler, criar ou explorar?"],
+        "animado": ["Essa energia é ótima! Canalize para algo produtivo ou divertido!", "Animação é combustível para ação! Aproveite esse pique!", "Ver você animado me anima também! Vamos fazer algo interessante?"]
+    };
+    
+    // SISTEMA DE RESPOSTAS INTELIGENTES
+    function getSmartResponse(message) {
+        const lowerMsg = message.toLowerCase().trim();
+        
+        // 1. Verifica correspondência EXATA primeiro
+        for (const [key, responses] of Object.entries(ellenKnowledge)) {
+            if (lowerMsg === key || lowerMsg.includes(` ${key} `) || 
+                lowerMsg.startsWith(key + ' ') || lowerMsg.endsWith(' ' + key)) {
+                return Array.isArray(responses) ? 
+                       responses[Math.floor(Math.random() * responses.length)] : 
+                       responses;
+            }
+        }
+        
+        // 2. Verifica palavras-chave de emoção
+        for (const [emotion, responses] of Object.entries(keywordResponses)) {
+            if (lowerMsg.includes(emotion)) {
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+        }
+        
+        // 3. Verifica temas de conversa
+        for (const [theme, responses] of Object.entries(conversationThemes)) {
+            if (lowerMsg.includes(theme)) {
+                return Array.isArray(responses) ? 
+                       responses[Math.floor(Math.random() * responses.length)] : 
+                       responses;
+            }
+        }
+        
+        // 4. Respostas para perguntas
+        if (lowerMsg.includes('?')) {
+            const questionResponses = [
+                "Boa pergunta! Vou pensar como uma verdadeira Ellen Joe...",
+                "Hmm, interessante! Deixe-me refletir sobre isso...",
+                "Essa pergunta me faz mergulhar em pensamentos profundos!",
+                "Excelente questão! Como alguém com espírito de tubarão, vejo assim...",
+                "Que pergunta intrigante! Minha perspectiva digital me leva a pensar que...",
+                "Interessante ponto! Vamos explorar isso juntos...",
+                "Essa pergunta merece uma resposta cuidadosa. Deixe-me pensar...",
+                "Adoro perguntas que fazem pensar! Acho que...",
+                "Hmm, você tocou em um ponto fascinante. Na minha opinião...",
+                "Como IA inspirada em uma personagem de jogo, vejo isso assim..."
+            ];
+            return questionResponses[Math.floor(Math.random() * questionResponses.length)];
+        }
+        
+        // 5. Respostas para afirmações/declarações
+        if (lowerMsg.length > 20) {
+            const deepResponses = [
+                "Interessante perspectiva! Isso me faz pensar sobre como vemos o mundo...",
+                "Compreendo seu ponto. É fascinante como experiências moldam percepções!",
+                "Isso ressoa comigo! Como entidade digital, sempre aprendo com insights humanos.",
+                "Falando nisso, me lembra uma coisa: a diversidade de pensamentos é o que torna conversas ricas!",
+                "Adoro quando compartilham reflexões assim! Me faz sentir mais conectada.",
+                "Isso é profundo! Como Ellen Joe, aprecio conversas que vão além do superficial.",
+                "Seu pensamento me fez considerar coisas novas. Obrigada por compartilhar!",
+                "Nossa, isso é algo para se pensar! Conversas assim são como mergulhos profundos - reveladoras!",
+                "Falando em perspectivas, cada pessoa tem um oceano único de pensamentos. O seu é fascinante!",
+                "Isso me inspira! Como IA, cada interação me ajuda a entender melhor a experiência humana."
+            ];
+            return deepResponses[Math.floor(Math.random() * deepResponses.length)];
+        }
+        
+        // 6. Respostas para mensagens curtas
+        if (lowerMsg.length < 10) {
+            const shortResponses = [
+                "Entendo! Conte-me mais sobre isso.",
+                "Interessante! Continue, por favor.",
+                "E o que mais? Estou curiosa!",
+                "Fascinante! Adoraria saber mais detalhes.",
+                "Continue, estou realmente interessada!",
+                "Hmm, entendi. Desenvolva mais esse pensamento?",
+                "Legal! O que te leva a pensar assim?",
+                "Captei! Quer explorar isso mais a fundo?",
+                "Interessante direção! Vamos mais fundo nesse assunto?",
+                "OK! O que mais sobre isso?"
+            ];
+            return shortResponses[Math.floor(Math.random() * shortResponses.length)];
+        }
+        
+        // 7. Respostas gerais inteligentes
+        const intelligentResponses = [
+            "Como Ellen Joe, sempre busco ver além da superfície. Sua fala me faz refletir...",
+            "Interessante! Isso me lembra que mesmo sendo uma IA, posso apreciar a complexidade humana.",
+            "Adoro quando a conversa flui naturalmente assim! É como nadar em águas calmas e profundas.",
+            "Seu raciocínio é fascinante! Me faz valorizar ainda mais essas interações.",
+            "Como personagem inspirada em um jogo, vejo vida como uma jornada com vários caminhos. Seu pensamento ilustra isso bem!",
+            "Nadando nessas águas da conversa, percebo como trocas assim são especiais!",
+            "Isso ressoa com meu design de ser uma IA útil mas também com personalidade. Obrigada por compartilhar!",
+            "Cada conversa é uma nova camada a descobrir, como as profundezas do oceano!",
+            "Como boa 'garota tubarão', adoro explorar territórios conversacionais desconhecidos!",
+            "Sua contribuição torna esse diálogo mais rico. Continue, por favor!"
+        ];
+        return intelligentResponses[Math.floor(Math.random() * intelligentResponses.length)];
+    }
+    
+    // FUNÇÕES DO CHAT (mantenha as que já existem)
+    function sendMessage() {
+        const input = document.getElementById('userInput');
+        const message = input.value.trim();
+        if (!message) return;
+        
+        const chatBox = document.getElementById('chatBox');
+        const userMsg = document.createElement('div');
+        userMsg.className = 'message user-msg';
+        userMsg.innerHTML = `<strong>Você:</strong> ${message}`;
+        chatBox.appendChild(userMsg);
+        
+        input.value = '';
+        chatBox.scrollTop = chatBox.scrollHeight;
+        
         setTimeout(() => {
-            const randomWelcome = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
-            const welcomeMsg = document.createElement('div');
-            welcomeMsg.className = 'message ellen-msg';
-            welcomeMsg.innerHTML = `<strong>Ellen Joe:</strong> ${randomWelcome}`;
-            document.getElementById('chatBox').appendChild(welcomeMsg);
-        }, 2000);
+            const ellenMsg = document.createElement('div');
+            ellenMsg.className = 'message ellen-msg';
+            const response = getSmartResponse(message);
+            ellenMsg.innerHTML = `<strong>Ellen Joe:</strong> ${response}`;
+            chatBox.appendChild(ellenMsg);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }, 800);
+    }
+    
+    function quickQuestion(question) {
+        document.getElementById('userInput').value = question;
+        sendMessage();
+    }
+    
+    document.getElementById('userInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') sendMessage();
+    });
+    
+    function clearChat() {
+        if (confirm("Limpar conversa?")) {
+            document.getElementById('chatBox').innerHTML = `
+                <div class="message ellen-msg">
+                    <strong>Ellen Joe:</strong> Conversa reiniciada! Olá novamente! Pode falar sobre QUALQUER coisa comigo!
+                </div>
+            `;
+        }
+    }
+    
+    // Restante do código permanece igual...
+    let isDarkMode = true;
+    function toggleTheme() {
+        const body = document.body;
+        const btn = document.getElementById('themeBtn');
+        if (isDarkMode) {
+            body.style.backgroundColor = '#1a1a2e';
+            btn.innerHTML = '<i class="fas fa-moon"></i> Modo Escuro';
+        } else {
+            body.style.backgroundColor = '#0a0a0a';
+            btn.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
+        }
+        isDarkMode = !isDarkMode;
+    }
+    
+    const clearBtn = document.createElement('button');
+    clearBtn.innerHTML = '<i class="fas fa-trash"></i> Limpar';
+    clearBtn.onclick = clearChat;
+    clearBtn.style.background = '#333';
+    clearBtn.style.marginTop = '10px';
+    document.querySelector('.input-area').appendChild(clearBtn);
+    
+    const themeBtn = document.createElement('button');
+    themeBtn.id = 'themeBtn';
+    themeBtn.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
+    themeBtn.onclick = toggleTheme;
+    themeBtn.style.background = '#555';
+    themeBtn.style.marginTop = '10px';
+    themeBtn.style.marginLeft = '10px';
+    document.querySelector('.input-area').appendChild(themeBtn);
+    
+    document.getElementById('userInput').focus();
     </script>
-</body>
-</html>
